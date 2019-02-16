@@ -9,11 +9,11 @@ var cheerio = require("cheerio");
 //----------------------------------//
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 //-------------------//
 var app = express();
-
+// app.set('port', (process.env.PORT || 3000));
 //-------------------//
 
 app.use(logger("dev"));
@@ -27,8 +27,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //-----------------------//
-mongoose.connect("mongodb://localhost/hempData", { useNewUrlParser: true });
-
+// mongoose.connect("mongodb://localhost/hempData", { useNewUrlParser: true });
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_SERVER}`);
 //-----------//
 
 //----------------------//
